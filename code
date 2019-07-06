@@ -1,0 +1,436 @@
+package parallelproject;
+
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Arrays;
+
+class CreateAccount
+{
+	int i=0;
+	private String name;
+	private String dateOfBirth;
+	private long mobile;
+	private long balance;
+	private String password;
+	private String tran[] = new String[10];
+	public String getbalance;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setTransaction(String tran)
+	{
+		this.tran[i]=tran;
+		i++;
+	}
+	public String getTransaction()
+	{
+		String st=String.join(" \n ",tran);
+		return st;
+	}
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public long getMobile() {
+		return mobile;
+	}
+	public void setMobile(int mobile) {
+		this.mobile = mobile;
+	}
+	public long getBalance() {
+		return balance;
+	}
+	public void setBalance(long balance) {
+		this.balance = balance;
+	}
+	public boolean getPassword(String password) {
+		if(this.password.equals(password))
+		   return true;
+		else
+			return false;
+	}
+	
+	
+	public CreateAccount(String name, String dateOfBirth, long mobile,String password,int bal,String tan ) {
+		this.name = name;
+		this.dateOfBirth = dateOfBirth;
+		this.mobile = mobile;
+		this.password = password;
+		balance=bal;
+		tran[i]=tan;
+		System.out.println(tran[i]);
+		i++;
+	}
+	@Override
+	public String toString() {
+		return "CreateAccount [i=" + i + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", mobile=" + mobile
+				+ ", balance=" + balance + ", password=" + password + ", tran=" + Arrays.toString(tran) + "]";
+	}	
+}
+
+
+public class BankWallet {
+	public static void main(String[] args) {
+	
+		HashMap hm=new HashMap();
+	
+	while(true)
+	{
+		System.out.println("*****************************************************");
+		System.out.println("                    Pay Wallet");
+		System.out.println("*****************************************************");
+		System.out.println();
+		
+		System.out.println(" 1. Create Account \n 2. Show Balance \n 3. Deposit \n 4. Withdraw \n 5. Fund Transfer \n 6. Print Transaction \n 7. Exit");
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter your choice:");
+		int key=sc.nextInt();
+		
+		switch(key) {
+		case 1:
+			System.out.println("Enter your name : ");
+			String name=sc.next();
+			name += sc.nextLine();
+			System.out.println("Enter your mobile number : ");
+			long mob=sc.nextLong();
+			System.out.println("Enter your Date of Birth as dd/mm//yyyy : ");
+			String date=sc.next();
+			System.out.println("Enter the password : ");
+			String password=sc.next();
+			
+			CreateAccount ca = new CreateAccount(name,date,mob, password,1000," Account created as Rs.1000 balance ");
+			long accNo = mob - 23456;
+			hm.put(accNo, ca);
+			
+			System.out.println("Your Account number is successfully created");
+			System.out.println("Your Account number is : "+accNo);
+			System.out.println("Thank You");			
+			break;
+			
+		case 2:
+			System.out.println("Enter your Account number : ");
+			accNo=sc.nextLong();
+			
+			if(hm.containsKey(accNo)) {
+				System.out.println("Enter your password : ");
+				password=sc.next();
+				CreateAccount ca1 = (CreateAccount) hm.get(accNo);
+				
+				if(ca1.getPassword(password))
+				{
+					System.out.println("Hello "+ca1.getName());
+					System.out.println("Your account Balance is "+ca1.getBalance());
+				}
+				else
+				{
+					System.out.println("Enter valid Account number");
+				}
+			}			
+			break;
+			
+		case 3:
+			System.out.println("Enter your Account number : ");
+			accNo=sc.nextLong();
+
+			if(hm.containsKey(accNo)) {
+				System.out.println("Enter your password : ");
+				password=sc.next();
+				CreateAccount ca1 = (CreateAccount) hm.get(accNo);
+				
+				if(ca1.getPassword(password))
+				{
+					System.out.println("Hello "+ca1.getName());
+					System.out.println("Enter the Deposit amount : ");
+					long amt=sc.nextLong();
+					long bal = ca1.getBalance() + amt;
+					ca1.setBalance(bal);
+					
+					System.out.println("Your Deposit amount is "+amt);
+					System.out.println("your Account balance is"+ca1.getBalance());
+				}
+				else 
+				{
+					System.out.println("Enter valid password");
+					break;
+				}
+			}
+			else 
+			{
+				System.out.println("Enter correct Account number ");
+			}
+			break;
+			
+		case 4:
+			System.out.println("Enter your Account number : ");
+			accNo=sc.nextLong();
+
+			if(hm.containsKey(accNo)) {
+				System.out.println("Enter your password : ");
+				password=sc.next();
+				CreateAccount ca1 = (CreateAccount) hm.get(accNo);
+				
+				if(ca1.getPassword(password))
+				{
+					System.out.println("Hello "+ca1.getName());
+                    System.out.println("Enter the Withdraw amount : ");
+                    long amt=sc.nextLong();					
+					long bal = ca1.getBalance() - amt;
+					ca1.setBalance(bal);
+					
+					System.out.println("Your Withdraw amount is "+amt);
+					System.out.println("your Account balance is"+ca1.getBalance());
+				}
+				else 
+				{
+					System.out.println("Enter valid password");
+					break;
+				}
+			}
+			else 
+			{
+				System.out.println("Enter correct Account number ");
+			}
+			break;
+		
+		case 5:
+			System.out.println("Enter your Account number : ");
+			accNo=sc.nextLong();
+
+			if(hm.containsKey(accNo))
+			{
+				System.out.println("Enter your password : ");
+				password=sc.next();
+				CreateAccount ca1 = (CreateAccount) hm.get(accNo);
+				
+				if(ca1.getPassword(password))
+				{
+					System.out.println("Hello "+ca1.getName());
+					System.out.println("Enter the Account number in which you want to Transfer : ");
+					
+					long accNo1 = sc.nextLong();
+					
+					if(hm.containsKey(accNo1))
+					{
+						CreateAccount ca2=(CreateAccount) hm.get(accNo1);
+						System.out.println("Enter the amount ");
+						long amt=sc.nextLong();
+						long bal=ca2.getBalance()+amt;
+						ca2.setBalance(bal);
+						bal=ca1.getBalance()-amt;
+						ca1.setTransaction("Amount Deposited to Account "+accNo1+" of amount "+amt);
+						System.out.println("Your account balance is "+ca1.getBalance());
+					}
+					else
+					{
+						System.out.println("Enter valid account number ");
+						break;
+					}
+				}
+				else
+				{
+					System.out.println("Enter valid password ");
+					break;
+				}
+			}
+			else
+				{
+					System.out.println("Enter correct Account number ");
+				}
+			break;
+			
+		case 6:
+			System.out.println("Enter your Account number : ");
+			accNo=sc.nextLong();
+
+			if(hm.containsKey(accNo)) {
+				System.out.println("Enter your password : ");
+				password=sc.next();
+				CreateAccount ca1 = (CreateAccount) hm.get(accNo);
+				
+				if(ca1.getPassword(password))
+				{
+					System.out.println("Your Transactions are "+ca1.getTransaction());
+				}
+				else
+				{
+					System.out.println("Enter correct password ");
+					break;
+				}
+				
+			}	
+			else
+			{
+				System.out.println("Enter correct Account number ");
+			}
+			break;
+			
+		case 7:
+			System.exit(0);
+			break;
+			
+		case 8:
+			System.out.println("Enter proper choice");
+			break;
+					
+
+		}
+
+		}
+	}
+}
+			
+		
+						
+						
+						
+					
+			
+				
+				
+				
+					
+					
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 
+				
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
